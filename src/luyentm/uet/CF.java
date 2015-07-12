@@ -6,7 +6,7 @@ public class CF {
 	// Ly thuyet la tuy chon Thuc the chi nen de 3 hay 5 ve do rong thoi, phai
 	// la so le
 
-	// Dùng cho debug ra thông tin
+	// DuÌ€ng cho debug ra thÃ´ng tin
 	public static final boolean OUT_TO_FILE = true;
 	public static final boolean OUT_TO_TERMINAL = false;
 	public static final boolean LOG_KEYPOINT = false;
@@ -15,16 +15,16 @@ public class CF {
 
 	public static final boolean LOG_DESCRIPTOR = false;
 	public static final boolean UI_GRAPH = false;
-	// Tham số : tên file xuất ra
+	// Tham sÃ´Ì� : tÃªn file xuÃ¢Ì�t ra
 	public static final String NAME_FILE_OUT = "infomations";
-	// Tùy chọn : chuẩn hóa các tham số của ma trận Gaussian Blur
+	// TuÌ€y choÌ£n : chuÃ¢Ì‰n hoÌ�a caÌ�c tham sÃ´Ì� cuÌ‰a ma trÃ¢Ì£n Gaussian Blur
 
 	// tam thoi thi thay khi chuan hoa thi co it keypoint hon nhieu
 	public static final boolean NORMALIZE = false;
 
 	//
 	// public static final String inputFileName = "input.txt";
-	public static String inputFileName = "smaller_input.txt";
+	public static String inputFileName = "input.txt";
 	public static int N = 4; // so luong thang cuc tri lay xung quanh, can
 	public static int M = 4; // so luong diem lay xung quanh
 	public static int NUMBER_NEIGHBER = 20;

@@ -78,12 +78,12 @@ public class KeypointManage {
 				System.out
 						.println("\n***************************************************");
 			}
-			x1 = (1 / (Math.sqrt(2 * 3.14d) * zicma))
-					* Math.exp(-(1 / (2 * zicma * zicma)));
-			x2 = (1 / (Math.sqrt(2 * 3.14d) * zicma))
-					* Math.exp(-(0 / (2d * zicma * zicma)));
-			x3 = (1 / (Math.sqrt(2 * 3.14d) * zicma))
-					* Math.exp(-(1 / (2d * zicma * zicma)));
+			// x1 = (1 / (Math.sqrt(2 * 3.14d) * zicma))
+			// * Math.exp(-(1 / (2 * zicma * zicma)));
+			// x2 = (1 / (Math.sqrt(2 * 3.14d) * zicma))
+			// * Math.exp(-(0 / (2d * zicma * zicma)));
+			// x3 = (1 / (Math.sqrt(2 * 3.14d) * zicma))
+			// * Math.exp(-(1 / (2d * zicma * zicma)));
 
 			// x1 = (1 / (Math.sqrt(2 * 3.14f) * zicma))
 			// * Math.pow(2.71, -(1 / (2f * zicma * zicma)));
@@ -91,33 +91,34 @@ public class KeypointManage {
 			// * Math.pow(2.71, -(0 / (2f * zicma * zicma)));
 			// x3 = (1 / (Math.sqrt(2 * 3.14f) * zicma))
 			// * Math.pow(2.71, -(1 / (2f * zicma * zicma)));
-			double sumfactor = x1 + x2 + x3;
-			/******************************************
-			 * CAN CHO VIEC CHUAN HOA THAM SO GAUSIAN chuan hoa lai (co tong
-			 * bang 1) => tam thoi de la KHONG chuan hoa CAP NHAT : phai chuan
-			 * hoa ==> neu ko chuan hoa thi so lieu luon giam ==> ko the tinh
-			 * DOG duoc
-			 ******************************************
-			 */
-			if (CF.NORMALIZE) {
-				x1 = x1 / sumfactor;
-				x2 = x2 / sumfactor;
-				x3 = x3 / sumfactor;
-				sumfactor = x1 + x2 + x3;
-			}
-
-			if (CF.OUT_TO_TERMINAL) {
-				System.out.println("Factor: x1 = " + x1 + ",\t x2= " + x2
-						+ ",\t x3= " + x3 + ",\t zicma: " + zicma + "\t Sum : "
-						+ sumfactor);
-			}
+			// double sumfactor = x1 + x2 + x3;
+			// /******************************************
+			// * CAN CHO VIEC CHUAN HOA THAM SO GAUSIAN chuan hoa lai (co tong
+			// * bang 1) => tam thoi de la KHONG chuan hoa CAP NHAT : phai chuan
+			// * hoa ==> neu ko chuan hoa thi so lieu luon giam ==> ko the tinh
+			// * DOG duoc
+			// ******************************************
+			// */
+			// if (CF.NORMALIZE) {
+			// x1 = x1 / sumfactor;
+			// x2 = x2 / sumfactor;
+			// x3 = x3 / sumfactor;
+			// sumfactor = x1 + x2 + x3;
+			// }
+			//
+			// if (CF.OUT_TO_TERMINAL) {
+			// System.out.println("Factor: x1 = " + x1 + ",\t x2= " + x2
+			// + ",\t x3= " + x3 + ",\t zicma: " + zicma + "\t Sum : "
+			// + sumfactor);
+			// }
 			// tao ra du lieu => new "blur" signal
 			// TINH RIENG CHO GIA TRI O DAU TIEN VA CUOI CUNG
 			// khong xu rieng cho vao cong thuc tong quat
-			/**********************************************************
-			 * Can xu ly ngoai le la cac diem khi nhan chap bi thieu phan tu, xu
-			 * dung giai phap la
-			 */
+			// /**********************************************************
+			// * Can xu ly ngoai le la cac diem khi nhan chap bi thieu phan tu,
+			// xu
+			// * dung giai phap la
+			// */
 			// newArray.add(bigArray.get(0).get(0) * (x2 + x1)
 			// + bigArray.get(0).get(1) * x3);
 
@@ -128,28 +129,33 @@ public class KeypointManage {
 			// }
 			// van chay tu 0 binh thuong
 			// cho nay can xu ly lai them cho truong hop dau ben con lai
+
+			/********************
+			 * Them cac dong code cho cac kich ban 1: lay doi xung qua 2 ben 2:
+			 * cho ben trai bang 0 3: cho ben phai bang 0
+			 * 
+			 */
 			for (int j = 0; j < signal_size; j++) {
 				sum = 0;
 				// tinh tong cho no
+				// Truong hop 1: lay doi xung diem qua hai ben
 				for (int k = 0; k < CF.SIZE_KERNEL; k++) {
 					if (j - CF.SIZE_KERNEL / 2 + k < 0) {
+						// xu ly cho ben trai
 						sum += kernel[k]
 								* mInput.get(j + CF.SIZE_KERNEL / 2 - k);
 					} else if ((j + k - CF.SIZE_KERNEL / 2) < (signal_size)) {
+						// xu ly ben phai
 						sum += kernel[k]
 								* mInput.get(j - CF.SIZE_KERNEL / 2 + k);
 					} else {
+						// lay diem 1 cach binh thuong
 						sum += kernel[k]
 								* mInput.get(j + CF.SIZE_KERNEL / 2 - k);
 					}
 				}
 				newArray.add(sum);
-				// newArray.add(bigArray.get(0).get(j - 1) * x1
-				// + bigArray.get(0).get(j) * x2
-				// + bigArray.get(0).get(j + 1) * x3);
 			}
-			// newArray.add(bigArray.get(0).get(signal_size - 2) * x1
-			// + bigArray.get(0).get(signal_size - 1) * (x2 + x3));
 			// them vao big array
 			bigArray.add(newArray);
 		}
@@ -171,7 +177,7 @@ public class KeypointManage {
 		 */
 		System.out
 				.println("==================DU LIEU SIGNAL SCALE====================");
-		if (CF.OUT_TO_TERMINAL) {
+		if (false) {
 			for (int i = 0; i < CF.NUMBER_SCALE; i++) {
 				for (int j = 0; j < signal_size; j++) {
 					System.out.print(bigArray.get(i).get(j) + "\t");

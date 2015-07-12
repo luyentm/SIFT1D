@@ -59,7 +59,6 @@ public class ExtremaManage {
 	}
 
 	private ArrayList<Double> getRatiosOfPoint(int i, boolean isMax) {
-		ArrayList<Double> r = new ArrayList<Double>();
 
 		double x0 = i;
 		double y0 = mInput.get((int) x0);
@@ -90,7 +89,6 @@ public class ExtremaManage {
 			// roi add no vao
 			// neu no la Dinh thi lay duong, con lai lay am
 			// do doc giua (x0,y0) va (x,y)
-
 			double slope = Math.atan((y0 - y) / (x0 - x));
 			slopeInRight.add(slope);
 			if (CF.LOG_SLOPE) {
@@ -98,6 +96,7 @@ public class ExtremaManage {
 			}
 		}
 		for (int k = 0; k < CF.M; k++) {
+
 			if (isMax) {
 				ratio.add(Math.abs(slopeInRight.get(k) / slopeInLeft.get(k)));
 			} else {
@@ -122,6 +121,7 @@ public class ExtremaManage {
 		}
 		return -1;
 	}
+
 	/*
 	 * tra ve diem cuc tri theo position
 	 */
@@ -132,8 +132,8 @@ public class ExtremaManage {
 		}
 		return extremaPointList.get(pos);
 	}
-	
-	public ArrayList<ExtremaPoint> getListEx(){
+
+	public ArrayList<ExtremaPoint> getListEx() {
 		return extremaPointList;
 	}
 

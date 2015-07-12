@@ -165,7 +165,7 @@ public class GraphPanel extends JPanel {
 			int ovalW = pointWidth;
 			int ovalH = pointWidth;
 			if (extremaMax.contains(i)) {
-				g2.setColor(Color.black);
+				g2.setColor(Color.BLACK);
 				ovalW = ovalH = 5;
 			} else if (mKeypoints.contains(i)) {
 				ovalW = ovalH = 10;

@@ -2,11 +2,14 @@ package luyentm.uet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+/*
+ * Main Class of Detected keypoint and extract description for keypoint
+ */
 
 public class MainSIFT1D {
 	//
@@ -25,9 +28,9 @@ public class MainSIFT1D {
 		long time = System.currentTimeMillis();
 		// // load len danh sach file
 		// load configs len
-		// LoadConfigs load = new LoadConfigs("configs");
+		LoadConfigs load = new LoadConfigs("configs");
 		findFileAndGenDes("."); // duyet qua cac folder hien tai
-		JOptionPane.showMessageDialog(null, "Hoàn thành trong: "
+		JOptionPane.showMessageDialog(null, "Hoan thanh trong: "
 				+ (double) (System.currentTimeMillis() - time) / 1000);
 	}
 
@@ -39,17 +42,16 @@ public class MainSIFT1D {
 			if (file.isDirectory()
 					&& !file.getName().equals(CF.NAME_OUT_DIRECTORY)) {
 				// tao file ra tuong ung trong kia
-//				new File("./" + CF.NAME_OUT_DIRECTORY + "/"
-//						+ file.getPath().substring(0, file.getPath().length()))
-//						.mkdirs();
+				new File("./" + CF.NAME_OUT_DIRECTORY + "/"
+						+ file.getPath().substring(1, file.getPath().length()))
+						.mkdirs();
 				findFileAndGenDes(file.getPath());
-				file.delete();
 			} else {
 				// day la khi no khong phai la file nua, thi doc no thoi
 				// cho nay chi dung cho minh thoi nen khong can xet nhieu lam gi
 				// coi nhu trong moi folder nay chi toan co cac file du lieu
 				// thoi
-				// findKeypoint(file.getPath());
+				findKeypoint(file.getPath());
 			}
 		}
 
@@ -68,8 +70,7 @@ public class MainSIFT1D {
 		KeypointManage keypointManage = new KeypointManage(inputSignal);
 		// truyen vao day
 		ArrayList<KeyPoint> mKeyPoints = keypointManage.getKeypoints();
-		int signal_size = 0;
-		signal_size = inputSignal.size();
+		System.out.println("so luong keypoint: " + mKeyPoints.size());
 
 		// ///////////////////////////////////////////////////////////////////////
 		// bat dau gan descriptor cho keypoint
@@ -173,11 +174,11 @@ public class MainSIFT1D {
 		if (CF.OUT_TO_FILE) {
 			PrintWriter outFile;
 			try {
-				// cat di cai ten cua no va thay bang cai ten cua minh
-				// String outNameFile = inputFileName.substring(0,
-				// inputFileName.length() - 3);
-				outFile = new PrintWriter("./" + CF.NAME_OUT_DIRECTORY + "/"
-						+ inputFileName.substring(0, inputFileName.length()));
+//				String nameOutFile = "./" + CF.NAME_OUT_DIRECTORY + "/"
+//						+ inputFileName.substring(1, inputFileName.length());
+				PrintWriter nameOutFile = new PrintWriter("./" + CF.NAME_OUT_DIRECTORY + "/" + 
+				        inputFileName.substring(0, inputFileName.length()));
+				outFile = new PrintWriter(nameOutFile);
 				for (int q = 0; q < mKeyPoints.size(); q++) {
 					String outDes = mKeyPoints.get(q).descriptionToString();
 					if (!outDes.equals("null")) {
